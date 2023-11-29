@@ -44,6 +44,63 @@ describe('Arithmetic', function () {
         });
     });
 
+    // UNIT TESTS FOR SUBTRACTION
+describe('Subtraction', function () {
+    it('subtracts two positive integers', function (done) {
+        request.get('/arithmetic?operation=subtract&operand1=21&operand2=21')
+            .expect(200)
+            .end(function (err, res) {
+                expect(res.body).to.eql({ result: 0 });
+                done();
+            });
+    });
+
+    it('subtracts positive integer and zero', function (done) {
+        request.get('/arithmetic?operation=subtract&operand1=21&operand2=0')
+            .expect(200)
+            .end(function (err, res) {
+                expect(res.body).to.eql({ result: 21 });
+                done();
+            });
+    });
+
+    it('subtracts a positive integer from a negative integer', function (done) {
+        request.get('/arithmetic?operation=subtract&operand1=-21&operand2=42')
+            .expect(200)
+            .end(function (err, res) {
+                expect(res.body).to.eql({ result: -63 });
+                done();
+            });
+    });
+
+    it('subtracts two negative integers', function (done) {
+        request.get('/arithmetic?operation=subtract&operand1=-21&operand2=-21')
+            .expect(200)
+            .end(function (err, res) {
+                expect(res.body).to.eql({ result: 0 });
+                done();
+            });
+    });
+
+    it('subtracts an integer from a floating point number', function (done) {
+        request.get('/arithmetic?operation=subtract&operand1=21&operand2=4.5')
+            .expect(200)
+            .end(function (err, res) {
+                expect(res.body).to.eql({ result: 16.5 });
+                done();
+            });
+    });
+
+    it('subtracts with positive exponent', function (done) {
+        request.get('/arithmetic?operation=subtract&operand1=4.2e1&operand2=2e1')
+            .expect(200)
+            .end(function (err, res) {
+                expect(res.body).to.eql({ result: 22 });
+                done();
+            });
+    });
+});
+
     // UNIT TESTS FOR ADDITION
     describe('Addition', function () {
         it('adds two positive integers', function (done) {
