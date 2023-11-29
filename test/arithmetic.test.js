@@ -44,6 +44,63 @@ describe('Arithmetic', function () {
         });
     });
 
+    // UNIT TESTS FOR SUBTRACTION
+describe('Subtraction', function () {
+    it('subtracts two positive integers', function (done) {
+        request.get('/arithmetic?operation=subtract&operand1=21&operand2=10')
+            .expect(200)
+            .end(function (err, res) {
+                expect(res.body).to.eql({ result: 11 });
+                done();
+            });
+    });
+
+    it('subtracts a positive integer from zero', function (done) {
+        request.get('/arithmetic?operation=subtract&operand1=0&operand2=10')
+            .expect(200)
+            .end(function (err, res) {
+                expect(res.body).to.eql({ result: -10 });
+                done();
+            });
+    });
+
+    it('subtracts a negative integer from a positive integer', function (done) {
+        request.get('/arithmetic?operation=subtract&operand1=21&operand2=-10')
+            .expect(200)
+            .end(function (err, res) {
+                expect(res.body).to.eql({ result: 31 });
+                done();
+            });
+    });
+
+    it('subtracts two negative integers', function (done) {
+        request.get('/arithmetic?operation=subtract&operand1=-21&operand2=-10')
+            .expect(200)
+            .end(function (err, res) {
+                expect(res.body).to.eql({ result: -11 });
+                done();
+            });
+    });
+    
+    it('subtracts an integer from a floating point number', function (done) {
+        request.get('/arithmetic?operation=subtract&operand1=2.5&operand2=1')
+            .expect(200)
+            .end(function (err, res) {
+                expect(res.body).to.eql({ result: 1.5 });
+                done();
+            });
+    });
+
+    it('subtracts a floating point number with negative exponent from another', function (done) {
+        request.get('/arithmetic?operation=subtract&operand1=1.2e-5&operand2=-1.2e-5')
+            .expect(200)
+            .end(function (err, res) {
+                expect(res.body).to.eql({ result: 2.4e-5 });
+                done();
+            });
+    });
+});
+
     // UNIT TESTS FOR ADDITION
     describe('Addition', function () {
         it('adds two positive integers', function (done) {
