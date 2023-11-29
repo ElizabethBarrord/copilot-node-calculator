@@ -96,6 +96,34 @@ describe('Arithmetic', function () {
         });
     });
 
+    describe('Subtraction', function () {
+    it('subtract two positive integers', function (done) {
+        request.get('/arithmetic?operation=subtract&operand1=21&operand2=10')
+            .expect(200)
+            .end(function (err, res) {
+                expect(res.body).to.eql({ result: 11 });
+                done();
+            });
+    });
+    it('subtract a positive integer and zero', function (done) {
+        request.get('/arithmetic?operation=subtract&operand1=21&operand2=0')
+            .expect(200)
+            .end(function (err, res) {
+                expect(res.body).to.eql({ result: 21 });
+                done();
+            });
+    });
+    it('subtract a positive integer and larger number', function (done) {
+        request.get('/arithmetic?operation=subtract&operand1=21&operand2=42')
+            .expect(200)
+            .end(function (err, res) {
+                expect(res.body).to.eql({ result: -21 });
+                done();
+            });
+    });
+    // Continue to add more test cases such as 
+    // subtraction of 2 negative integers, subtraction involving real numbers, etc. as needed.
+});
  
     // UNIT TESTS FOR MULTIPLICATION
     describe('Multiplication', function () {
